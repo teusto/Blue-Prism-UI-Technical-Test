@@ -46,4 +46,7 @@ I would like to focus on these points:
 - Would like to implement some animations to make the design more fluid and appealing(using gsap, framer, etc).
 - Dockerize the app.
 
+#### What about the db.json and the server side?
+
+I had to edit the db.json because i couldnt find any db with the endpoints listed in the technical test reference. So i made a mock based on the document using https://www.jsongenerator.io/ to create fake data.
 
