@@ -4,17 +4,20 @@ import { useFetch } from '../Hooks/useFetch';
 const ListSchedulesContext = createContext({
     logs: [],
     allLogs: [],
-    toggleBtn: (a,b) => {},
+    selectedCard: Number,
+    toggleBtn: (a,b,c) => {},
     setInitialLogs: (a) => {}
 });
 
 const ListSchedulesProvider = ({ children }) => {
   const [logs, setLogs] = useState([]);
   const [allLogs, setAllLogs] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(-1);
 
-  const toggleBtn = (cardLogs, status) => {
+  const toggleBtn = (cardLogs, status, id) => {
     const filtered = allLogs.filter(logs => cardLogs.includes(logs.id))
     setLogs(status ? filtered : allLogs);
+    setSelectedCard(id)
   };
 
   const setInitialLogs = (data) => {
@@ -22,7 +25,7 @@ const ListSchedulesProvider = ({ children }) => {
   }
 
   return (
-    <ListSchedulesContext.Provider value={{ allLogs, logs, toggleBtn, setInitialLogs }}>
+    <ListSchedulesContext.Provider value={{ allLogs, logs, toggleBtn, setInitialLogs, selectedCard }}>
       {children}
     </ListSchedulesContext.Provider>
   );

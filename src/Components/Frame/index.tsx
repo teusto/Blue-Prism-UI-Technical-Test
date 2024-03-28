@@ -19,8 +19,9 @@ export const FrameApplicationUI: FunctionComponent<FrameApplicationUIProps> = ({
             </section>
             <section className='FAUI__bottom'>
                 <section className='FAUI__bottom__left'>
-                    {data?.map((element) => {
-                        return <Cards data={element}/>
+                    {data?.map((element, id) => {
+                        console.log(element)
+                        return <Cards data={element} id={id}/>
                     })}
                 </section>
                 <section className='FAUI__bottom__right'>

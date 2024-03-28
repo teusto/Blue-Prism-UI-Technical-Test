@@ -14,29 +14,52 @@ type Data =
     }
 
 type CardsProps = {
-    data: Data
+    data: Data,
+    id: Number
 }
 
-export const Cards: FunctionComponent<CardsProps> = ({ data }) => {
+export const Cards: FunctionComponent<CardsProps> = ({ data, id }) => {
     const [btnStatus, setBtnStatus] = React.useState(true);
-    const { toggleBtn } = useListSchedules();
+    const [scheduleStatus, setScheduleStatus] = React.useState(true);
+    const [scheduleId, setScheduleId] = React.useState('');
+    const { toggleBtn, selectedCard } = useListSchedules();
 
     const handleToggle = () => {
-        setBtnStatus(!btnStatus);
-        toggleBtn(data.logs, btnStatus) 
+        setScheduleStatus(!scheduleStatus);
+        let idCSS
+        scheduleStatus ? idCSS = id : idCSS = -1
+        toggleBtn(data.logs, scheduleStatus, idCSS)
+    }
+
+    const handleBtnStatus = (e) => {
+        e.preventDefault()
+        setBtnStatus(!btnStatus)
+        // This endpoint doesnt exist
+        fetch('http://localhost:3000/schedule/update', {
+            method: 'POST',
+            body: JSON.stringify({
+                status: scheduleStatus ? 'Retired' : 'Unretired',
+                scheduleId: scheduleId
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
     }
 
     return (
-        <div className='Cards__wrapper'>
+        <div className={selectedCard === id ? 'Cards__wrapper--selected' : 'Cards__wrapper'} onClick={handleToggle}>
             <div className='Cards__top'>
                 <p>{data.title}</p>
             </div>
             <div className='Cards__mid'>
-                <p>{data.content.a}</p>
-                <p>{data.content.b}</p>
+                <p>{data.content?.a}</p>
+                <p>{data.content?.b}</p>
             </div>
             <div className='Cards__bottom'>
-                <div className='C--btn' onClick={handleToggle}>
+                <div className='C--btn' onClick={handleBtnStatus}>
                     {btnStatus ? 'Retire' : 'Unretired'}
                 </div>
             </div>

@@ -12,7 +12,7 @@ type TableProps = {
 
 export const Table: FunctionComponent<TableProps> = ({ title, paragraph }) => {
     const { data }: any = useFetch("http://localhost:3000/schedulesLogs")
-    const { logs, toggleBtn, allLogs, setInitialLogs } = useListSchedules();
+    const { logs, setInitialLogs } = useListSchedules();
     const [logsList, setLogsList] = useState([])
 
     useEffect(() => {

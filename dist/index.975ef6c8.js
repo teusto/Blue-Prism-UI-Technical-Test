@@ -27231,12 +27231,14 @@ const FrameApplicationUI = ({ title, paragraph })=>{
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
                         className: "FAUI__bottom__left",
-                        children: data?.map((element)=>{
+                        children: data?.map((element, id)=>{
+                            console.log(element);
                             return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cards.Cards), {
-                                data: element
+                                data: element,
+                                id: id
                             }, void 0, false, {
                                 fileName: "src/Components/Frame/index.tsx",
-                                lineNumber: 23,
+                                lineNumber: 24,
                                 columnNumber: 32
                             }, undefined);
                         })
@@ -27249,12 +27251,12 @@ const FrameApplicationUI = ({ title, paragraph })=>{
                         className: "FAUI__bottom__right",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _table.Table), {}, void 0, false, {
                             fileName: "src/Components/Frame/index.tsx",
-                            lineNumber: 27,
+                            lineNumber: 28,
                             columnNumber: 21
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/Components/Frame/index.tsx",
-                        lineNumber: 26,
+                        lineNumber: 27,
                         columnNumber: 17
                     }, undefined)
                 ]
@@ -27592,16 +27594,38 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _styleScss = require("./style.scss");
 var _listSchedulesContext = require("../../Contexts/listSchedules.context");
 var _s = $RefreshSig$();
-const Cards = ({ data })=>{
+const Cards = ({ data, id })=>{
     _s();
     const [btnStatus, setBtnStatus] = (0, _reactDefault.default).useState(true);
-    const { toggleBtn } = (0, _listSchedulesContext.useListSchedules)();
+    const [scheduleStatus, setScheduleStatus] = (0, _reactDefault.default).useState(true);
+    const [scheduleId, setScheduleId] = (0, _reactDefault.default).useState("");
+    const { toggleBtn, selectedCard } = (0, _listSchedulesContext.useListSchedules)();
     const handleToggle = ()=>{
+        setScheduleStatus(!scheduleStatus);
+        let idCSS;
+        scheduleStatus ? idCSS = id : idCSS = -1;
+        toggleBtn(data.logs, scheduleStatus, idCSS);
+    };
+    const handleBtnStatus = (e)=>{
+        e.preventDefault();
         setBtnStatus(!btnStatus);
-        toggleBtn(data.logs, btnStatus);
+        // This endpoint doesnt exist
+        fetch("http://localhost:3000/schedule/update", {
+            method: "POST",
+            body: JSON.stringify({
+                status: scheduleStatus ? "Retired" : "Unretired",
+                scheduleId: scheduleId
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "Cards__wrapper",
+        className: selectedCard === id ? "Cards__wrapper--selected" : "Cards__wrapper",
+        onClick: handleToggle,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "Cards__top",
@@ -27609,61 +27633,61 @@ const Cards = ({ data })=>{
                     children: data.title
                 }, void 0, false, {
                     fileName: "src/Components/Cards/index.tsx",
-                    lineNumber: 32,
+                    lineNumber: 55,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/Components/Cards/index.tsx",
-                lineNumber: 31,
+                lineNumber: 54,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "Cards__mid",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        children: data.content.a
+                        children: data.content?.a
                     }, void 0, false, {
                         fileName: "src/Components/Cards/index.tsx",
-                        lineNumber: 35,
+                        lineNumber: 58,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        children: data.content.b
+                        children: data.content?.b
                     }, void 0, false, {
                         fileName: "src/Components/Cards/index.tsx",
-                        lineNumber: 36,
+                        lineNumber: 59,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/Components/Cards/index.tsx",
-                lineNumber: 34,
+                lineNumber: 57,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "Cards__bottom",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     className: "C--btn",
-                    onClick: handleToggle,
+                    onClick: handleBtnStatus,
                     children: btnStatus ? "Retire" : "Unretired"
                 }, void 0, false, {
                     fileName: "src/Components/Cards/index.tsx",
-                    lineNumber: 39,
+                    lineNumber: 62,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/Components/Cards/index.tsx",
-                lineNumber: 38,
+                lineNumber: 61,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/Components/Cards/index.tsx",
-        lineNumber: 30,
+        lineNumber: 53,
         columnNumber: 9
     }, undefined);
 };
-_s(Cards, "As5eqgqQJWfhytJCaQNWimG9vM4=", false, function() {
+_s(Cards, "qA4B3XwVhWEUbA5xoljDZrzrPK8=", false, function() {
     return [
         (0, _listSchedulesContext.useListSchedules)
     ];
@@ -27695,16 +27719,19 @@ var _s = $RefreshSig$(), _s1 = $RefreshSig$();
 const ListSchedulesContext = /*#__PURE__*/ (0, _react.createContext)({
     logs: [],
     allLogs: [],
-    toggleBtn: (a, b)=>{},
+    selectedCard: Number,
+    toggleBtn: (a, b, c)=>{},
     setInitialLogs: (a)=>{}
 });
 const ListSchedulesProvider = ({ children })=>{
     _s();
     const [logs, setLogs] = (0, _react.useState)([]);
     const [allLogs, setAllLogs] = (0, _react.useState)([]);
-    const toggleBtn = (cardLogs, status)=>{
+    const [selectedCard, setSelectedCard] = (0, _react.useState)(-1);
+    const toggleBtn = (cardLogs, status, id)=>{
         const filtered = allLogs.filter((logs)=>cardLogs.includes(logs.id));
         setLogs(status ? filtered : allLogs);
+        setSelectedCard(id);
     };
     const setInitialLogs = (data)=>{
         setAllLogs(data);
@@ -27714,16 +27741,17 @@ const ListSchedulesProvider = ({ children })=>{
             allLogs,
             logs,
             toggleBtn,
-            setInitialLogs
+            setInitialLogs,
+            selectedCard
         },
         children: children
     }, void 0, false, {
         fileName: "src/Contexts/listSchedules.context.tsx",
-        lineNumber: 25,
+        lineNumber: 28,
         columnNumber: 5
     }, undefined);
 };
-_s(ListSchedulesProvider, "3kSL5Q9NM/n7O9Fli7NeXYMQ74E=");
+_s(ListSchedulesProvider, "EVpL+jQi4B6tt5JwZ6nBu08NDgk=");
 _c = ListSchedulesProvider;
 const useListSchedules = ()=>{
     _s1();
@@ -27758,7 +27786,7 @@ var _s = $RefreshSig$();
 const Table = ({ title, paragraph })=>{
     _s();
     const { data } = (0, _useFetch.useFetch)("http://localhost:3000/schedulesLogs");
-    const { logs, toggleBtn, allLogs, setInitialLogs } = (0, _listSchedulesContext.useListSchedules)();
+    const { logs, setInitialLogs } = (0, _listSchedulesContext.useListSchedules)();
     const [logsList, setLogsList] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
         setLogsList(data);
@@ -27804,7 +27832,7 @@ const Table = ({ title, paragraph })=>{
         columnNumber: 9
     }, undefined);
 };
-_s(Table, "+LZZkBNojD2l+2yshdcnWpbOALI=", false, function() {
+_s(Table, "6oiXcLhxOEZyK0XYOyWsfTiG19A=", false, function() {
     return [
         (0, _useFetch.useFetch),
         (0, _listSchedulesContext.useListSchedules)
@@ -27834,7 +27862,7 @@ var _s = $RefreshSig$();
 const useFetch = (url)=>{
     _s();
     const [data, setData] = (0, _react.useState)(null);
-    const [isPending, setIsPending] = (0, _react.useState)(false);
+    // const [isPending, setIsPending] = useState(false);
     (0, _react.useEffect)(()=>{
         const fetchData = async ()=>{
             const response = await fetch(url);
@@ -27849,7 +27877,7 @@ const useFetch = (url)=>{
         data
     };
 };
-_s(useFetch, "6fR6bwTj+IQDzQ9qUBQd9krs8qE=");
+_s(useFetch, "fQZRxy/+nAZ7NLS1X4dVhrlp8Go=");
 
   $parcel$ReactRefreshHelpers$2790.postlude(module);
 } finally {
