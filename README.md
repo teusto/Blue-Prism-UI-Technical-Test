@@ -45,6 +45,8 @@ I would like to focus on these points:
 - Define more types and interfaces
 - Would like to implement some animations to make the design more fluid and appealing(using gsap, framer, etc).
 - Dockerize the app.
+- Search input to filter array of scheduleLogs based on name.
+- Viewports and mobile friendly.
 
 #### What about the db.json and the server side?
 
