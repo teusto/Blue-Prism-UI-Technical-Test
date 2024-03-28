@@ -1,7 +1,7 @@
 
 # Blue Prism UI - Test
 
-This project was made for the technical step on the Blue Prism recruitment process.
+This project was made for the technical step on the Blue Prism recruitment process. You can test here: https://master.d1u940i1qf05n1.amplifyapp.com/
 
 ## Tech Stack
 
