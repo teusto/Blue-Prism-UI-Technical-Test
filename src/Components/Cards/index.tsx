@@ -18,7 +18,7 @@ type CardsProps = {
     id: Number
 }
 
-export const Cards: FunctionComponent<CardsProps> = ({ data, id }) => {
+export const Cards: FunctionComponent<CardsProps> = ({ data = {title:'Test', content: {a:'', b:''}}, id = -1 }) => {
     const [btnStatus, setBtnStatus] = React.useState(true);
     const [scheduleStatus, setScheduleStatus] = React.useState(true);
     const [scheduleId, setScheduleId] = React.useState('');
@@ -35,16 +35,16 @@ export const Cards: FunctionComponent<CardsProps> = ({ data, id }) => {
         e.preventDefault()
         setBtnStatus(!btnStatus)
         // This endpoint doesnt exist
-        fetch('http://localhost:3000/schedule/update', {
-            method: 'POST',
-            body: JSON.stringify({
-                status: scheduleStatus ? 'Retired' : 'Unretired',
-                scheduleId: scheduleId
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
+        // fetch('http://localhost:3000/schedule/update', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         status: scheduleStatus ? 'Retired' : 'Unretired',
+        //         scheduleId: scheduleId
+        //     }),
+        //     headers: {
+        //         'Content-type': 'application/json; charset=UTF-8',
+        //     },
+        // })
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
     }
@@ -59,8 +59,8 @@ export const Cards: FunctionComponent<CardsProps> = ({ data, id }) => {
                 <p>{data.content?.b}</p>
             </div>
             <div className='Cards__bottom'>
-                <div className='C--btn' onClick={handleBtnStatus}>
-                    {btnStatus ? 'Retire' : 'Unretired'}
+                <div className='C--btn' onClick={handleBtnStatus} role='cards-btn-test'>
+                    <span role='cards-btn-text-test'>{btnStatus ? 'Retire' : 'Unretired'}</span>
                 </div>
             </div>
         </div>
