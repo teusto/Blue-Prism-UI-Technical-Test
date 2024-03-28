@@ -1,0 +1,104 @@
+.Cards__wrapper {
+    border: 2px solid #034078;
+    background-color: #034078;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 130px;
+    border-radius: 4px;
+    margin: .8em 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.6) 0px 1px 2px 0px;
+    color: #ffffff;
+    cursor: pointer;
+
+    .Cards__top {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 .8em;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .Cards__mid {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1em;
+    }
+
+    .Cards__bottom {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 1em;
+
+        .C--btn {
+            width: 7em;
+            background-color: #ffffff;
+            text-align: center;
+            display: inline-block;
+            border-radius: 2px;
+            border: 1px solid #ffffff;
+            color: #034078;
+            cursor: pointer;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: .2em 1em;
+            box-shadow: rgba(0, 0, 0, 0.52) 0px 1px 3px, rgba(158, 158, 158, 0.691) 0px 1px 2px;
+        }
+    }
+}
+
+.Cards__wrapper--selected {
+    border: 2px solid #034078;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 130px;
+    border-radius: 4px;
+    margin: .8em 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.6) 0px 1px 2px 0px;
+    color: #034078;
+    cursor: pointer;
+    .Cards__top {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 .8em;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .Cards__mid {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1em;
+    }
+
+    .Cards__bottom {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 1em;
+
+        .C--btn {
+            width: 7em;
+            background-color: #ffffff;
+            text-align: center;
+            display: inline-block;
+            border-radius: 2px;
+            border: 1px solid #ffffff;
+            color: #034078;
+            cursor: pointer;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: .2em 1em;
+            box-shadow: rgba(0, 0, 0, 0.52) 0px 1px 3px, rgba(158, 158, 158, 0.691) 0px 1px 2px;
+        }
+    }
+}
